@@ -7,10 +7,11 @@ namespace Crud_Operations.Data
     public class DatabaseHelper
     {
         private readonly string connectionString;
+        private static string _dbPath;
 
-        public DatabaseHelper(string dbPath)
+        public DatabaseHelper()
         {
-            connectionString = $"Data Source={dbPath}";
+            connectionString = $"Data Source={_dbPath}";
         }
 
         public DataTable ExecuteQuery(string query, params SqliteParameter[] parameters)
@@ -48,6 +49,7 @@ namespace Crud_Operations.Data
 
         public static void CreateDatabase(string dbPath)
         {
+            _dbPath = dbPath;
             if (File.Exists(dbPath))
                 return;
 

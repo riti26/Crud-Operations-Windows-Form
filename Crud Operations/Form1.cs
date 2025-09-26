@@ -14,8 +14,7 @@ namespace Crud_Operations
         {
             InitializeComponent();
 
-            string dbPath = @"C:\Users\Riti\Desktop\mydb.sqlite";
-            dbHelper = new DatabaseHelper(dbPath);
+            dbHelper = new DatabaseHelper();
             LoadData();
             AddActionButtons();
             btnAdd.Click += btnAdd_Click;
