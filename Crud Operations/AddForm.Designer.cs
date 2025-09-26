@@ -75,35 +75,36 @@
 
             this.SuspendLayout();
 
-         
             int labelX = 20;
             int controlX = 160;
             int startY = 20;
-            int verticalSpacing = 40;
+            int verticalSpacing = 50; // consistent spacing
+            int controlHeight = 27;
+            int groupBoxHeight = 50;
 
             // Emertimi
             this.lblEmertimi.Text = "Emertimi:";
             this.lblEmertimi.Location = new System.Drawing.Point(labelX, startY);
             this.lblEmertimi.AutoSize = true;
 
-            this.txtEmertimi.Location = new System.Drawing.Point(controlX, startY - 3);
-            this.txtEmertimi.Size = new System.Drawing.Size(250, 27);
+            this.txtEmertimi.Location = new System.Drawing.Point(controlX, startY);
+            this.txtEmertimi.Size = new System.Drawing.Size(250, controlHeight);
 
             // Njesia
             this.lblNjesia.Text = "Njesia:";
             this.lblNjesia.Location = new System.Drawing.Point(labelX, startY + verticalSpacing);
             this.lblNjesia.AutoSize = true;
 
-            this.txtNjesia.Location = new System.Drawing.Point(controlX, startY + verticalSpacing - 3);
-            this.txtNjesia.Size = new System.Drawing.Size(250, 27);
+            this.txtNjesia.Location = new System.Drawing.Point(controlX, startY + verticalSpacing);
+            this.txtNjesia.Size = new System.Drawing.Size(250, controlHeight);
 
             // Data Skadences
             this.lblDataSkadences.Text = "Data Skadences:";
             this.lblDataSkadences.Location = new System.Drawing.Point(labelX, startY + 2 * verticalSpacing);
             this.lblDataSkadences.AutoSize = true;
 
-            this.dtpDataSkadences.Location = new System.Drawing.Point(controlX, startY + 2 * verticalSpacing - 3);
-            this.dtpDataSkadences.Size = new System.Drawing.Size(250, 27);
+            this.dtpDataSkadences.Location = new System.Drawing.Point(controlX, startY + 2 * verticalSpacing);
+            this.dtpDataSkadences.Size = new System.Drawing.Size(250, controlHeight);
             this.dtpDataSkadences.Format = System.Windows.Forms.DateTimePickerFormat.Short;
 
             // Cmimi
@@ -111,31 +112,41 @@
             this.lblCmimi.Location = new System.Drawing.Point(labelX, startY + 3 * verticalSpacing);
             this.lblCmimi.AutoSize = true;
 
-            this.txtCmimi.Location = new System.Drawing.Point(controlX, startY + 3 * verticalSpacing - 3);
-            this.txtCmimi.Size = new System.Drawing.Size(250, 27);
+            this.txtCmimi.Location = new System.Drawing.Point(controlX, startY + 3 * verticalSpacing);
+            this.txtCmimi.Size = new System.Drawing.Size(250, controlHeight);
+            this.txtCmimi.KeyPress += (s, e) =>
+            {
+                e.Handled =
+                    (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != ',')
+                    ? true
+                    : ((e.KeyChar == '.' || e.KeyChar == ',') &&
+                       (txtCmimi.Text.Contains('.') || txtCmimi.Text.Contains(',')) ? true : false);
+            };
 
             // Lloj (Radio buttons)
             this.lblLloj.Text = "Lloj:";
             this.lblLloj.Location = new System.Drawing.Point(labelX, startY + 4 * verticalSpacing);
             this.lblLloj.AutoSize = true;
 
-            this.grpLloj.Location = new System.Drawing.Point(controlX, startY + 4 * verticalSpacing - 5);
-            this.grpLloj.Size = new System.Drawing.Size(250, 40);
-            this.grpLloj.Controls.Add(this.rbI);
-            this.grpLloj.Controls.Add(this.rbV);
+            this.grpLloj.Location = new System.Drawing.Point(controlX, startY + 4 * verticalSpacing);
+            this.grpLloj.Size = new System.Drawing.Size(270, groupBoxHeight);
             this.grpLloj.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 
-            this.rbI.Text = "I";
-            this.rbI.Location = new System.Drawing.Point(10, 10);
+            this.rbI.Text = "Importi";
+            this.rbI.Location = new System.Drawing.Point(10, 15);
             this.rbI.AutoSize = true;
 
-            this.rbV.Text = "V";
-            this.rbV.Location = new System.Drawing.Point(80, 10);
+            this.rbV.Text = "Vendi";
+            this.rbV.Location = new System.Drawing.Point(130, 15);
             this.rbV.AutoSize = true;
+            this.rbV.Checked = true;
+
+            this.grpLloj.Controls.Add(this.rbI);
+            this.grpLloj.Controls.Add(this.rbV);
 
             // Ka TVSH (CheckBox)
             this.chkTvsh.Text = "Ka TVSH?";
-            this.chkTvsh.Location = new System.Drawing.Point(controlX, startY + 5 * verticalSpacing - 3);
+            this.chkTvsh.Location = new System.Drawing.Point(controlX, startY + 5 * verticalSpacing);
             this.chkTvsh.AutoSize = true;
 
             // Tipi (ComboBox)
@@ -143,8 +154,8 @@
             this.lblTipi.Location = new System.Drawing.Point(labelX, startY + 6 * verticalSpacing);
             this.lblTipi.AutoSize = true;
 
-            this.cmbTipi.Location = new System.Drawing.Point(controlX, startY + 6 * verticalSpacing - 3);
-            this.cmbTipi.Size = new System.Drawing.Size(250, 27);
+            this.cmbTipi.Location = new System.Drawing.Point(controlX, startY + 6 * verticalSpacing);
+            this.cmbTipi.Size = new System.Drawing.Size(250, controlHeight);
             this.cmbTipi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipi.Items.AddRange(new string[] { "Ushqimore", "Bulmet", "Pije", "Embelsire" });
 
@@ -153,8 +164,8 @@
             this.lblBarkod.Location = new System.Drawing.Point(labelX, startY + 7 * verticalSpacing);
             this.lblBarkod.AutoSize = true;
 
-            this.txtBarkod.Location = new System.Drawing.Point(controlX, startY + 7 * verticalSpacing - 3);
-            this.txtBarkod.Size = new System.Drawing.Size(250, 27);
+            this.txtBarkod.Location = new System.Drawing.Point(controlX, startY + 7 * verticalSpacing);
+            this.txtBarkod.Size = new System.Drawing.Size(250, controlHeight);
 
             // Buttons
             this.btnSave.Text = "Save";
@@ -167,8 +178,7 @@
             this.btnCancel.Size = new System.Drawing.Size(100, 30);
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 
-            // AddForm
-            this.ClientSize = new System.Drawing.Size(450, 450);
+            // Add all controls
             this.Controls.Add(this.lblEmertimi);
             this.Controls.Add(this.txtEmertimi);
             this.Controls.Add(this.lblNjesia);
@@ -187,10 +197,13 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
 
+            this.ClientSize = new System.Drawing.Size(450, 500);
             this.Text = "Shto Artikuj";
+
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
 
         #endregion
     }
